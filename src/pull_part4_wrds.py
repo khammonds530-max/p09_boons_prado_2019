@@ -10,7 +10,7 @@ import argparse
 import hashlib
 import json
 import os
-from contextlib import ExitStack
+from contextlib import ExitStack, closing
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -93,9 +93,8 @@ def pull(force=False):
                 continue
             if connection is None:
                 connection = stack.enter_context(
-                    psycopg2.connect(**connection_parameters())
+                    closing(psycopg2.connect(**connection_parameters()))
                 )
-                stack.callback(connection.close)
             with connection.cursor() as cursor:
                 cursor.execute(QUERY, (row.contrname, row.ticker, PULL_START, PULL_END))
                 frame = pd.DataFrame(

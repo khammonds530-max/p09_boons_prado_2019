@@ -294,3 +294,54 @@ def test_local_real_data_identities_when_cache_exists():
         rtol=0,
     )
     assert comp.loc[~comp.is_roll, "roll_return"].eq(0).all()
+
+
+def test_pull_closes_connection_once_and_valid_cache_is_offline(tmp_path, monkeypatch):
+    """Exercise uncached -> cached pulling without credentials or a live DB."""
+    import sys
+    from types import SimpleNamespace
+    from unittest.mock import MagicMock
+
+    import pull_part4_wrds as puller
+
+    universe = tmp_path / "universe.csv"
+    universe.write_text("commodity,ticker,contrname\nCorn,C,CORN\n")
+    monkeypatch.setattr(puller, "UNIVERSE_FILE", universe)
+    monkeypatch.setattr(puller, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(puller, "connection_parameters", dict)
+    cursor = MagicMock()
+    cursor.description = [
+        (c,)
+        for c in [
+            "futcode",
+            "contrname",
+            "dsmnem",
+            "contrdate",
+            "lasttrddate",
+            "date_",
+            "settlement",
+            "volume",
+            "openinterest",
+        ]
+    ]
+    cursor.fetchall.return_value = [
+        (
+            123,
+            "CORN",
+            "C",
+            "0320",
+            pd.Timestamp("2020-03-20"),
+            pd.Timestamp("2020-01-31"),
+            100.0,
+            1.0,
+            2.0,
+        )
+    ]
+    connection = MagicMock()
+    connection.cursor.return_value.__enter__.return_value = cursor
+    connect = MagicMock(return_value=connection)
+    monkeypatch.setitem(sys.modules, "psycopg2", SimpleNamespace(connect=connect))
+    puller.pull()
+    connection.close.assert_called_once()
+    puller.pull()
+    connect.assert_called_once()  # verified manifest/hash cache needs no DB connection
