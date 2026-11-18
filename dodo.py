@@ -110,7 +110,7 @@ def task_part4():
     return {
         "actions": [main],
         "task_dep": ["part4_pull"],
-        "file_dep": ["src/run_part4.py", "src/part4_analysis.py", "src/part4_config.py",
+        "file_dep": ["src/run_part4.py", "src/part4_analysis.py", "src/part4_config.py", "src/pull_part4_wrds.py",
                      "src/build_futures_panel.py", "src/build_futures_returns.py", "src/build_futures_signals.py",
                      UNIVERSE_FILE, PART4_DATA / "source_manifest.json"]
                     + [PART4_DATA / "raw" / f"{ticker}_futures.parquet" for ticker in pd.read_csv(UNIVERSE_FILE).ticker],

@@ -27,6 +27,8 @@ sensitivity are explicit; exact matching to paper numbers is not claimed.
 See [Part 4 methods, setup and limitations](docs_src/site/part4_methodology.md)
 and `src/04_part4_analysis.ipynb.py` for the analysis tour. The shared report
 can include `reports/part4_section.tex` after building the outputs.
+Local test and fresh-clone evidence is recorded in
+[Part 4 verification](docs_src/site/part4_verification.md).
 
 ## Quick Start
 
