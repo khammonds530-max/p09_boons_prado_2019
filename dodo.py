@@ -85,6 +85,48 @@ def task_config():
     }
 
 
+def task_part4_pull():
+    """Pull Doris's WRDS inputs with Kayla's source filters (credentials required)."""
+    from part4_config import DATA_DIR as PART4_DATA, UNIVERSE_FILE
+    from pull_part4_wrds import pull
+    import pandas as pd
+
+    tickers = pd.read_csv(UNIVERSE_FILE).ticker
+    return {
+        "actions": [pull],
+        "file_dep": ["src/pull_part4_wrds.py", "src/part4_config.py", UNIVERSE_FILE],
+        "targets": [PART4_DATA / "raw" / f"{ticker}_futures.parquet" for ticker in tickers]
+                   + [PART4_DATA / "source_manifest.json"],
+        "clean": [],
+    }
+
+
+def task_part4():
+    """Build Tables 4/5, diagnostics, monthly portfolios and paper comparisons."""
+    from part4_config import DATA_DIR as PART4_DATA, OUTPUT_DIR as PART4_OUTPUT, UNIVERSE_FILE
+    from run_part4 import main
+    import pandas as pd
+
+    return {
+        "actions": [main],
+        "task_dep": ["part4_pull"],
+        "file_dep": ["src/run_part4.py", "src/part4_analysis.py", "src/part4_config.py",
+                     "src/build_futures_panel.py", "src/build_futures_returns.py", "src/build_futures_signals.py",
+                     UNIVERSE_FILE, PART4_DATA / "source_manifest.json"]
+                    + [PART4_DATA / "raw" / f"{ticker}_futures.parquet" for ticker in pd.read_csv(UNIVERSE_FILE).ticker],
+        "targets": [PART4_OUTPUT / f"table{n}.{ext}" for n in [4, 5] for ext in ["csv", "tex", "html", "png"]]
+                   + [PART4_OUTPUT / name for name in [
+                       "run_manifest.json", "paper_comparison.csv", "table4_main_statistics.csv",
+                       "table5_statistics.csv", "results.md", "results_macros.tex",
+                       "coverage_diagnostics.csv", "roll_event_diagnostics.csv",
+                       "decomposition_identity_audit.csv", "table4_statistics.csv",
+                       "table4_monthly.csv", "table5_monthly.csv",
+                       "table4_memberships.csv", "table5_memberships.csv"]]
+                   + [PART4_DATA / f"{name}.parquet" for name in ["panel", "returns", "signals", "components"]],
+        "clean": [],
+    }
+
+
 def task_summary_stats():
     """Generate summary statistics tables"""
     file_dep = ["./src/example_table.py"]
@@ -122,6 +164,12 @@ def task_example_plot():
 
 
 notebook_tasks = {
+    "04_part4_analysis.ipynb.py": {
+        "path": "./src/04_part4_analysis.ipynb.py",
+        "file_dep": [OUTPUT_DIR / "part4/table4.csv", OUTPUT_DIR / "part4/table5.csv",
+                     OUTPUT_DIR / "part4/table4_main_statistics.csv", OUTPUT_DIR / "part4/paper_comparison.csv"],
+        "targets": [],
+    },
     "01_example_notebook_interactive.ipynb.py": {
         "path": "./src/01_example_notebook_interactive.ipynb.py",
         "file_dep": [],

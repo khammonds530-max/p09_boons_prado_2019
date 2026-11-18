@@ -3,4 +3,5 @@
 :caption: Project Notes
 
 project_overview
+part4_methodology
 ```

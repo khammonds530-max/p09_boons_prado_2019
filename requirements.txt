@@ -33,6 +33,10 @@ xlwings>=0.33.3
 zstandard>=0.23.0
 linearmodels>=6.1
 
+# WRDS data access for the Part 4 replication (libpq reads local .pgpass)
+wrds>=3.3,<4
+psycopg2-binary>=2.9,<2.10
+
 # Jupyter dependencies
 jupyter
 jupyterlab
