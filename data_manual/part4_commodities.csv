@@ -1,0 +1,22 @@
+commodity,ticker,contrname
+Corn,C,CORN
+Wheat,W,WHEAT
+Oats,O,OATS
+Rough Rice,RR,RICE (ROUGH)
+Soybeans,S,SOYBEANS
+Soybean Meal,SM,SOYBEAN MEAL
+Soybean Oil,BO,SOYBEAN OIL
+Crude Oil,CL,CRUDE OIL (LIGHT SWEET)
+Gasoline,HU,GASOLINE UNLEADED (NEW YORK)
+Heating Oil,HO,HEATING OIL (NEW YORK)
+Feeder Cattle,FC,CATTLE (FEEDER)
+Live Cattle,LC,CATTLE (LIVE)
+Lean Hogs,LH,HOGS (LEAN)
+Cotton,CT,COTTON #2
+Lumber,LBS,LUMBER
+Gold,GC,GOLD (100 OZ)
+Silver,SI,SILVER (5000 OZ)
+Copper,HG,COPPER (HIGH GRADE)
+Coffee,KC,COFFEE 'C'
+Cocoa,CC,COCOA
+Orange Juice,OJ,ORANGE JUICE (FCOJ-A)

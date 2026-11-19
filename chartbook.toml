@@ -17,10 +17,31 @@ name = "Example Notebook Interactive"
 description = "Example notebook for demonstrating how to construct a Chartbook notebook."
 path = "_output/01_example_notebook_interactive.ipynb"
 
+[notebooks.part4_analysis]
+name = "Doris: maturity and spot/roll analysis"
+description = "WRDS replication of course Tables 4 and 5, with sample diagnostics."
+path = "_output/04_part4_analysis.ipynb"
+
 
 
 
 [dataframes]
+
+[dataframes.part4_table4_statistics]
+name = "Table 4 maturity statistics"
+description = "Annualized mean returns, t statistics, Sharpe ratios, and actual sample counts."
+sources = ["WRDS Datastream tr_ds_fut; authors' table targets supplied with the assignment"]
+providers = ["WRDS / LSEG Datastream"]
+path = "_output/part4/table4_main_statistics.csv"
+docs_path = "docs_src/site/part4_methodology.md"
+
+[dataframes.part4_table5_statistics]
+name = "Table 5 spot and roll statistics"
+description = "Commodity-level multiplicative decomposition aggregated into equal-weight portfolios."
+sources = ["WRDS Datastream tr_ds_fut; Kayla's same-contract return pipeline"]
+providers = ["WRDS / LSEG Datastream"]
+path = "_output/part4/table5_statistics.csv"
+docs_path = "docs_src/site/part4_methodology.md"
 
 
 [charts]

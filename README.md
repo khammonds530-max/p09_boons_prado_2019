@@ -5,6 +5,31 @@ p09_boons_prado_2019
 
 Replication of Boons and Prado (2019) - Basis-Momentum.
 
+## Doris: Part 4 — Tables 4 and 5
+
+This branch adds the maturity tests (supplied IA.XI) and spot/roll decomposition
+(supplied IA.XV), based on Kayla's unchanged WRDS panel/return functions.
+Install `requirements.txt`, configure your own authorized WRDS `.pgpass`, then
+run from the repository root:
+
+```bash
+doit part4
+python -m pytest -q src/test_part4.py
+```
+
+Results: `_output/part4/table4.html` and `table5.html` (also CSV/LaTeX/PNG),
+with generated findings in `_output/part4/results.md` and monthly audit trails.
+Raw inputs stay local in ignored `_data/part4/`. No passwords or raw WRDS data
+are committed. The historical evaluation is 1986-01 through 2014-02, not a
+current-data update. Sample/source differences and overlap-convention
+sensitivity are explicit; exact matching to paper numbers is not claimed.
+
+See [Part 4 methods, setup and limitations](docs_src/site/part4_methodology.md)
+and `src/04_part4_analysis.ipynb.py` for the analysis tour. The shared report
+can include `reports/part4_section.tex` after building the outputs.
+Local test and fresh-clone evidence is recorded in
+[Part 4 verification](docs_src/site/part4_verification.md).
+
 ## Quick Start
 
 The quickest way to run code in this repo is to use the following steps.

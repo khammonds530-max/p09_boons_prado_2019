@@ -1,0 +1,36 @@
+% Include from a report located in reports/, after running doit part4.
+\input{../_output/part4/results_macros.tex}
+\section{Maturity effects and spot/roll decomposition}
+We replicate the supplied Tables IA.XI and IA.XV (course Tables 4 and 5)
+using WRDS Datastream and a 1986--2014 historical evaluation window.
+Contract-specific missing histories and a shorter sample prevent exact
+comparison with the authors' 1960--2014 CRB/FII results.
+
+\begin{table}[htbp]
+\centering
+\caption{Basis-momentum across the curve. The table compares equal-weight
+High4-minus-Low4 returns at different nearby maturities. Conditional rows use
+same-side portfolio agreement of at most three commodities; unsigned-overlap
+sensitivity results are exported separately. Annual means are in percent;
+t statistics use monthly iid standard errors. Per-cell sample counts differ
+when selected contracts cannot be repriced.}
+\resizebox{\textwidth}{!}{\input{../_output/part4/table4.tex}}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Spot and roll decomposition. In the substituted WRDS sample,
+the basis-momentum return differential is associated primarily with the roll
+component; the spot differential is negative. Components are calculated
+per commodity before averaging, with identical evaluation months across
+groups. The spot component is a residual rather than observed physical spot
+returns. The multiplicative interaction is retained in the audit outputs.}
+\resizebox{\textwidth}{!}{\input{../_output/part4/table5.tex}}
+\end{table}
+
+The annualized basis-momentum High4-minus-Low4 futures return is
+\PartFourFutures\% ($t=\PartFourFuturesT$), compared with a roll component of
+\PartFourRoll\% and a spot component of \PartFourSpot\%.
+These are historical gross returns, not an updated or transaction-cost-adjusted
+investment result. Gasoline coverage ends in 2006, and anomalous contract
+changes in rough rice and silver are excluded from the decomposition.
